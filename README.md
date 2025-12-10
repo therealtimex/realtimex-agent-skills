@@ -9,12 +9,10 @@ Central repository for agent skill definitions with automated release packaging.
 ```
 repo-root/
   {agent-uuid}/
-    skills/
+    agent.md          # Agent personality and behavioral guidelines
+    skills/           # Agent-specific skills and capabilities
       {skill-name}/
         SKILL.md
-    docs/
-      {skill-name}/
-        readme.md
   .github/
     workflows/
       release-packaging.yml
@@ -24,8 +22,8 @@ repo-root/
 
 Each agent folder:
 - Named with a valid UUID (format: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`)
+- Contains `agent.md` file defining the agent's personality and behavioral guidelines
 - Contains `skills/` directory with skill subfolders, each having a `SKILL.md` file
-- Contains `docs/` directory with documentation subfolders matching skills structure
 
 ## Adding a New Agent
 
@@ -37,12 +35,11 @@ Each agent folder:
 2. Create the folder structure:
    ```bash
    mkdir -p {uuid}/skills/{skill-name}
-   mkdir -p {uuid}/docs/{skill-name}
    ```
 
 3. Add your files:
+   - `agent.md` - Agent personality and behavioral guidelines
    - `skills/{skill-name}/SKILL.md` - Agent skill definition
-   - `docs/{skill-name}/readme.md` - Documentation
 
 4. Commit and push:
    ```bash
