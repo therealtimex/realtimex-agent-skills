@@ -1,0 +1,118 @@
+name: Package and Release Agents
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  package-agents:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Identify and package agent folders
+        id: package
+        run: |
+          # UUID regex pattern (8-4-4-4-12 format with hyphens)
+          UUID_PATTERN="^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+
+          # Create directory for packaged agents
+          mkdir -p packaged-agents
+
+          # Track if any agents were found
+          AGENT_COUNT=0
+
+          echo "Scanning for agent folders..."
+
+          # Iterate through all top-level directories
+          for folder in */; do
+            # Remove trailing slash
+            folder_name="${folder%/}"
+
+            # Skip non-agent folders
+            if [[ "$folder_name" == ".github" ]] || [[ "$folder_name" == "packaged-agents" ]]; then
+              echo "Skipping system folder: $folder_name"
+              continue
+            fi
+
+            # Check if folder name matches UUID pattern
+            if [[ $folder_name =~ $UUID_PATTERN ]]; then
+              echo "Found agent folder: $folder_name"
+
+              # Create ZIP file for this agent
+              zip -r "packaged-agents/${folder_name}.zip" "$folder_name"
+
+              if [ $? -eq 0 ]; then
+                echo "Successfully packaged: ${folder_name}.zip"
+                AGENT_COUNT=$((AGENT_COUNT + 1))
+              else
+                echo "Error packaging: $folder_name"
+                exit 1
+              fi
+            else
+              echo "Skipping non-UUID folder: $folder_name"
+            fi
+          done
+
+          echo "Total agents packaged: $AGENT_COUNT"
+
+          if [ $AGENT_COUNT -eq 0 ]; then
+            echo "Warning: No agent folders found to package"
+            exit 1
+          fi
+
+          # Output for next step
+          echo "agent_count=$AGENT_COUNT" >> $GITHUB_OUTPUT
+
+      - name: Upload agent packages to release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get the release upload URL
+          RELEASE_ID="${{ github.event.release.id }}"
+
+          echo "Uploading packages to release ID: $RELEASE_ID"
+
+          # Upload each ZIP file as a release asset
+          for zip_file in packaged-agents/*.zip; do
+            if [ -f "$zip_file" ]; then
+              filename=$(basename "$zip_file")
+              echo "Uploading: $filename"
+
+              gh release upload "${{ github.event.release.tag_name }}" \
+                "$zip_file" \
+                --clobber
+
+              if [ $? -eq 0 ]; then
+                echo "Successfully uploaded: $filename"
+              else
+                echo "Error uploading: $filename"
+                exit 1
+              fi
+            fi
+          done
+
+          echo "All agent packages uploaded successfully!"
+
+      - name: Summary
+        run: |
+          echo "## Release Packaging Complete! :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Release:** ${{ github.event.release.tag_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Agents Packaged:** ${{ steps.package.outputs.agent_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Packaged Agents:" >> $GITHUB_STEP_SUMMARY
+
+          for zip_file in packaged-agents/*.zip; do
+            if [ -f "$zip_file" ]; then
+              filename=$(basename "$zip_file")
+              agent_id="${filename%.zip}"
+              size=$(du -h "$zip_file" | cut -f1)
+              echo "- \`$agent_id\` ($size)" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
