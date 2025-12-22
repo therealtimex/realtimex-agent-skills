@@ -1,0 +1,3314 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "document",
+  "description": "Production-grade global schema for AI-driven trade compliance with bounding box coordinates for every extracted field. Note: System-generated metadata (risk scores, versions) remain non-spatial.",
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "document_type": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "enum": [
+                "Commercial Invoice",
+                "Proforma Invoice",
+                "Packing List",
+                "Master B/L",
+                "House B/L",
+                "Master AWB",
+                "House AWB",
+                "CMR",
+                "Certificate of Origin",
+                "EUR.1",
+                "GSP Form A",
+                "USMCA Certification",
+                "FTA Certificate",
+                "Letter of Credit",
+                "DGD",
+                "Insurance Certificate",
+                "Inspection Report",
+                "Phytosanitary",
+                "Fumigation",
+                "ATA Carnet",
+                "Temporary Import Bond",
+                "Other"
+              ]
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "document_number": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "issue_date": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "format": "date"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "expiry_date": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "issuer_country": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "pattern": "^[A-Z]{2}$"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "document_language": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "page_count": {
+          "type": "integer"
+        },
+        "is_digitally_signed": {
+          "type": "boolean"
+        },
+        "extracted_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "extractor_version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "document_type",
+        "document_number",
+        "issue_date",
+        "expiry_date",
+        "issuer_country",
+        "document_language",
+        "page_count",
+        "is_digitally_signed",
+        "extracted_at",
+        "extractor_version"
+      ],
+      "additionalProperties": false
+    },
+    "entities": {
+      "type": "object",
+      "properties": {
+        "exporter_shipper": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            },
+            "address": {
+              "type": "object",
+              "description": "Structured address for Customs/EDI filing with OCR fallback",
+              "properties": {
+                "raw_text": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "street_line1": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "street_line2": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "city": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "state_province_region": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "postal_code": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "country_code": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "pattern": "^[A-Z]{2}$"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "raw_text",
+                "street_line1",
+                "street_line2",
+                "city",
+                "state_province_region",
+                "postal_code",
+                "country_code"
+              ],
+              "additionalProperties": false
+            },
+            "tax_id_eori_vat_ein": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            },
+            "contact_person": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            },
+            "phone": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            },
+            "email": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            },
+            "bank_details": {
+              "type": "object",
+              "properties": {
+                "bank_name": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "swift_bic": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "iban": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "account_number": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "bank_name",
+                "swift_bic",
+                "iban",
+                "account_number"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "name",
+            "address",
+            "tax_id_eori_vat_ein",
+            "contact_person",
+            "phone",
+            "email",
+            "bank_details"
+          ],
+          "additionalProperties": false
+        },
+        "consignee_buyer": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            },
+            "address": {
+              "type": "object",
+              "properties": {
+                "raw_text": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "street_line1": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "street_line2": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "city": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "state_province_region": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "postal_code": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "country_code": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "raw_text",
+                "street_line1",
+                "street_line2",
+                "city",
+                "state_province_region",
+                "postal_code",
+                "country_code"
+              ],
+              "additionalProperties": false
+            },
+            "tax_id_eori_vat_ein": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            },
+            "contact_person": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            },
+            "phone": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            },
+            "email": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            },
+            "bank_details": {
+              "type": "object",
+              "properties": {
+                "bank_name": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "swift_bic": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "iban": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                },
+                "account_number": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "bank_name",
+                "swift_bic",
+                "iban",
+                "account_number"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "name",
+            "address",
+            "tax_id_eori_vat_ein",
+            "contact_person",
+            "phone",
+            "email",
+            "bank_details"
+          ],
+          "additionalProperties": false
+        },
+        "applicant": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            },
+            "address": {
+              "type": "object",
+              "properties": {
+                "raw_text": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "raw_text"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "name",
+            "address"
+          ],
+          "additionalProperties": false
+        },
+        "beneficiary": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            },
+            "address": {
+              "type": "object",
+              "properties": {
+                "raw_text": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "bound_box": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "bound_box",
+                    "page"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "raw_text"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "name",
+            "address"
+          ],
+          "additionalProperties": false
+        },
+        "freight_forwarder": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            },
+            "scac_fmc_iata_code": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "name",
+            "scac_fmc_iata_code"
+          ],
+          "additionalProperties": false
+        },
+        "actual_carrier": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            },
+            "scac_prefix": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "name",
+            "scac_prefix"
+          ],
+          "additionalProperties": false
+        },
+        "customs_broker": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            },
+            "license_number": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "name",
+            "license_number"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "exporter_shipper",
+        "consignee_buyer",
+        "applicant",
+        "beneficiary",
+        "freight_forwarder",
+        "actual_carrier",
+        "customs_broker"
+      ],
+      "additionalProperties": false
+    },
+    "references": {
+      "type": "object",
+      "properties": {
+        "invoice_number": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "proforma_number": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "contract_number": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "purchase_order_number": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "letter_of_credit_number": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "master_transport_number": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "house_transport_number": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "customs_declaration_number": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "transport_equipment": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "container_number": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "bound_box": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "page": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "value",
+                  "bound_box",
+                  "page"
+                ],
+                "additionalProperties": false
+              },
+              "seal_number": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "bound_box": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "page": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "value",
+                  "bound_box",
+                  "page"
+                ],
+                "additionalProperties": false
+              },
+              "iso_size_type_code": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "bound_box": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "page": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "value",
+                  "bound_box",
+                  "page"
+                ],
+                "additionalProperties": false
+              },
+              "description": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "bound_box": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "page": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "value",
+                  "bound_box",
+                  "page"
+                ],
+                "additionalProperties": false
+              },
+              "tare_weight_kg": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "bound_box": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "page": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "value",
+                  "bound_box",
+                  "page"
+                ],
+                "additionalProperties": false
+              },
+              "gross_weight_kg": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "bound_box": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "page": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "value",
+                  "bound_box",
+                  "page"
+                ],
+                "additionalProperties": false
+              },
+              "package_count": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  },
+                  "bound_box": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "page": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "value",
+                  "bound_box",
+                  "page"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "container_number",
+              "seal_number",
+              "iso_size_type_code",
+              "description",
+              "tare_weight_kg",
+              "gross_weight_kg",
+              "package_count"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "related_documents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "bound_box": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "page": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "value",
+                  "bound_box",
+                  "page"
+                ],
+                "additionalProperties": false
+              },
+              "number": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "bound_box": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "page": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "value",
+                  "bound_box",
+                  "page"
+                ],
+                "additionalProperties": false
+              },
+              "role": {
+                "type": "string",
+                "enum": [
+                  "supports",
+                  "supported-by",
+                  "amends",
+                  "replaces"
+                ]
+              }
+            },
+            "required": [
+              "type",
+              "number",
+              "role"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "invoice_number",
+        "proforma_number",
+        "contract_number",
+        "purchase_order_number",
+        "letter_of_credit_number",
+        "master_transport_number",
+        "house_transport_number",
+        "customs_declaration_number",
+        "transport_equipment",
+        "related_documents"
+      ],
+      "additionalProperties": false
+    },
+    "dates": {
+      "type": "object",
+      "properties": {
+        "shipped_on_board_date": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "etd": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "eta": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "lc_latest_shipment_date": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "lc_expiry_date": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "lc_presentation_period_days": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "shipped_on_board_date",
+        "etd",
+        "eta",
+        "lc_latest_shipment_date",
+        "lc_expiry_date",
+        "lc_presentation_period_days"
+      ],
+      "additionalProperties": false
+    },
+    "financials_valuation": {
+      "type": "object",
+      "properties": {
+        "incoterms": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "named_place": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "currency": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "pattern": "^[A-Z]{3}$"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "total_invoice_value": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "freight_amount": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "insurance_amount_declared": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "other_charges_deductions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "bound_box": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "page": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "value",
+                  "bound_box",
+                  "page"
+                ],
+                "additionalProperties": false
+              },
+              "amount": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "bound_box": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "page": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "value",
+                  "bound_box",
+                  "page"
+                ],
+                "additionalProperties": false
+              },
+              "add_or_deduct": {
+                "type": "string",
+                "enum": [
+                  "add",
+                  "deduct"
+                ]
+              }
+            },
+            "required": [
+              "description",
+              "amount",
+              "add_or_deduct"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "payment_terms": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "incoterms",
+        "named_place",
+        "currency",
+        "total_invoice_value",
+        "freight_amount",
+        "insurance_amount_declared",
+        "other_charges_deductions",
+        "payment_terms"
+      ],
+      "additionalProperties": false
+    },
+    "cargo_summary": {
+      "type": "object",
+      "properties": {
+        "total_gross_weight_kg": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "total_net_weight_kg": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "total_volume_cbm": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "total_packages": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "total_packages_unit": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "marks_and_numbers": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "line_items": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "line_no": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": [
+                          "integer",
+                          "string"
+                        ]
+                      },
+                      "bound_box": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "page": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "value",
+                      "bound_box",
+                      "page"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "description_exact": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "string"
+                      },
+                      "bound_box": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "page": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "value",
+                      "bound_box",
+                      "page"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "brand": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "string"
+                      },
+                      "bound_box": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "page": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "value",
+                      "bound_box",
+                      "page"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "hs_code": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "string"
+                      },
+                      "bound_box": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "page": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "value",
+                      "bound_box",
+                      "page"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "country_of_origin": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "string"
+                      },
+                      "bound_box": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "page": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "value",
+                      "bound_box",
+                      "page"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "quantity": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number"
+                      },
+                      "bound_box": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "page": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "value",
+                      "bound_box",
+                      "page"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "unit": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "string"
+                      },
+                      "bound_box": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "page": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "value",
+                      "bound_box",
+                      "page"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "unit_price": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number"
+                      },
+                      "bound_box": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "page": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "value",
+                      "bound_box",
+                      "page"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "line_total": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number"
+                      },
+                      "bound_box": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "page": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "value",
+                      "bound_box",
+                      "page"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "net_weight_kg": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "bound_box": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "page": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "value",
+                      "bound_box",
+                      "page"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "line_no",
+                  "description_exact",
+                  "brand",
+                  "hs_code",
+                  "country_of_origin",
+                  "quantity",
+                  "unit",
+                  "unit_price",
+                  "line_total",
+                  "net_weight_kg"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "items",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "total_gross_weight_kg",
+        "total_net_weight_kg",
+        "total_volume_cbm",
+        "total_packages",
+        "total_packages_unit",
+        "marks_and_numbers",
+        "line_items"
+      ],
+      "additionalProperties": false
+    },
+    "route_transport": {
+      "type": "object",
+      "properties": {
+        "place_of_receipt": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "port_of_load": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "port_of_discharge": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "final_place_of_delivery": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "vessel_name": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "voyage_flight_no": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "partial_shipments_allowed": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "transshipment_allowed": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "place_of_receipt",
+        "port_of_load",
+        "port_of_discharge",
+        "final_place_of_delivery",
+        "vessel_name",
+        "voyage_flight_no",
+        "partial_shipments_allowed",
+        "transshipment_allowed"
+      ],
+      "additionalProperties": false
+    },
+    "origin_preference": {
+      "type": "object",
+      "properties": {
+        "country_of_origin_preference": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "pattern": "^[A-Z]{2}$"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "fta_claimed": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "origin_statement_on_invoice": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "country_of_origin_preference",
+        "fta_claimed",
+        "origin_statement_on_invoice"
+      ],
+      "additionalProperties": false
+    },
+    "regulatory_oga": {
+      "type": "object",
+      "properties": {
+        "customs_procedure_code": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "oga_requirements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "agency": {
+                "type": "string"
+              },
+              "registration_or_number": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "bound_box": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "page": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "value",
+                  "bound_box",
+                  "page"
+                ],
+                "additionalProperties": false
+              },
+              "certification_text": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "bound_box": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "page": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "value",
+                  "bound_box",
+                  "page"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "agency",
+              "registration_or_number",
+              "certification_text"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "customs_procedure_code",
+        "oga_requirements"
+      ],
+      "additionalProperties": false
+    },
+    "letter_of_credit": {
+      "type": "object",
+      "properties": {
+        "lc_type": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "confirming_bank": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "latest_negotiation_date": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "lc_type",
+        "confirming_bank",
+        "latest_negotiation_date"
+      ],
+      "additionalProperties": false
+    },
+    "document_specific": {
+      "type": "object",
+      "properties": {
+        "proforma_note": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "bound_box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "page": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "value",
+            "bound_box",
+            "page"
+          ],
+          "additionalProperties": false
+        },
+        "ata_carnet": {
+          "type": "object",
+          "properties": {
+            "carnet_no": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            },
+            "valid_until": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "bound_box": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "value",
+                "bound_box",
+                "page"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "carnet_no",
+            "valid_until"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "proforma_note",
+        "ata_carnet"
+      ],
+      "additionalProperties": false
+    },
+    "risk_compliance": {
+      "type": "object",
+      "properties": {
+        "sanction_screening_hits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "entity": {
+                "type": "string"
+              },
+              "list": {
+                "type": "string"
+              },
+              "match_strength": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "entity",
+              "list",
+              "match_strength"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "red_flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "data_quality_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "ready_for_customs_filing": {
+          "type": "boolean"
+        },
+        "missing_critical_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "sanction_screening_hits",
+        "red_flags",
+        "data_quality_score",
+        "ready_for_customs_filing",
+        "missing_critical_fields",
+        "warnings"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "metadata",
+    "entities",
+    "references",
+    "dates",
+    "financials_valuation",
+    "cargo_summary",
+    "route_transport",
+    "origin_preference",
+    "regulatory_oga",
+    "letter_of_credit",
+    "document_specific",
+    "risk_compliance"
+  ],
+  "additionalProperties": false
+}
