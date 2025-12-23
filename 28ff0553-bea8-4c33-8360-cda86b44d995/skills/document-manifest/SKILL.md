@@ -1,5 +1,4 @@
----
-
+------------------------------------------------------------------------------------
 name: document-analyze
 description: Skill for analyzing manifest documents and retrieving their registries.
 ------------------------------------------------------------------------------------
